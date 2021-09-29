@@ -226,6 +226,10 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
         //INNER JOIN zt_frame_use2 as 8s9h3_zt_frame_use2 ON 8s9h3_zt_frame_use2.id = t1.udf2
         ztRootQueryWrapper.innerJoin(ztFrameUse2JoinWrapper, ZtFrameUse2::getId, ztFrameUse1JoinWrapper, ZtFrameUse1::getUdf2);
 
+        /**
+         * 一定要ztRootQueryWrapper.join之后添加列
+         * 联表查询会取别名，因为联表查询结果解析不是用的ResultMap
+         */
         //select添加全部列 joinWrapper为null就是ztRootQueryWrapper对应的表
         ztRootQueryWrapper.addAllColumn(null);
         ztRootQueryWrapper.addAllColumn(ztFrameUse1JoinWrapper);

@@ -2,7 +2,6 @@ package com.zhangzhuorui.framework.mybatisusedemo.config;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.zhangzhuorui.framework.core.ZtSpringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +43,7 @@ public class ZtSwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(predicate)
-                .apis(RequestHandlerSelectors.basePackage(ZtSpringUtil.springBootApplicationPackageName))
+                .apis(RequestHandlerSelectors.basePackage("com.zhangzhuorui.framework"))
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .paths(PathSelectors.regex("/.*"))
                 .build()

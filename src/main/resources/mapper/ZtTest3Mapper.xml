@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhangzhuorui.framework.mybatisusedemo.advanceduse.ZtTest3Mapper">
+    <resultMap id="BaseResultMap" type="com.zhangzhuorui.framework.mybatisusedemo.advanceduse.ZtTest3">
+        <id property="id" column="id"/>
+        <result property="udf1" column="udf_1"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtUpdate" column="gmt_update"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="updatedBy" column="updated_by"/>
+        <result property="remark" column="remark"/>
+        <result property="version" column="version"/>
+        <result property="createdByName" column="created_by_name"/>
+        <result property="updatedByName" column="updated_by_name"/>
+        <result property="udf2" column="udf_2"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="ztTest1Object" column="ztTest1Object"
+                typeHandler="com.zhangzhuorui.framework.mybatis.core.ZtFastjsonObjectTypeHandler"/>
+        <result property="ztTest1ListByUdf1" column="ztTest1ListByUdf1"
+                typeHandler="com.zhangzhuorui.framework.mybatis.core.ZtFastjsonListTypeHandler"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        udf_1,
+        gmt_create,
+        gmt_update,
+        created_by,
+        updated_by,
+        remark,
+        version,
+        created_by_name,
+        updated_by_name,
+        udf_2,
+        delete_flag,
+        ztTest1ListByUdf1,
+        ztTest1Object
+    </sql>
+</mapper>

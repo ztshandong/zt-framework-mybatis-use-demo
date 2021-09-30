@@ -31,7 +31,7 @@
         <dependency>
             <groupId>com.zhangzhuorui.framework</groupId>
             <artifactId>mybatis</artifactId>
-            <version>1.2</version>
+            <version>1.4.SNAPSHOT</version>
         </dependency>
 
         <dependency>

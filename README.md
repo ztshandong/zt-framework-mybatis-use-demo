@@ -8,8 +8,9 @@ public class ZtFrameUse1ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse1>
 }
 ```
 #
-# advancduse为高级用法，有乐观锁与逻辑删除字段。拼接复杂SQL。不是硬编码，不是在代码中写native sql。
-* # 详见ZtFrameUse3ServiceImpl.advancedInstructions。
+# advancduse为高级用法，有乐观锁与逻辑删除字段，对象与数组存储。拼接复杂SQL。不是硬编码，不是在代码中写native sql。
+* # 对象与数组字段见ZtTest3
+* # 乐观锁与逻辑删除，复杂SQL详见ZtFrameUse3ServiceImpl.advancedInstructions。
 ```sql
     SELECT DISTINCT
         ca57f_zt_frame_use2.`created_by`,

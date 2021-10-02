@@ -1,8 +1,10 @@
 package com.zhangzhuorui.framework.mybatisusedemo.advanceduse;
 
+import com.zhangzhuorui.framework.core.ZtColumnUtil;
 import com.zhangzhuorui.framework.mybatis.core.ZtParamEntity;
 import com.zhangzhuorui.framework.mybatis.core.ZtQueryWrapper;
 import com.zhangzhuorui.framework.mybatis.simplebaseservice.ZtSimpleBaseServiceImpl;
+import org.apache.ibatis.mapping.SqlCommandType;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class ZtTest3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtTest3> impleme
 
     @Override
     public String getVersionFieldName() {
-        return "version";
+        return ZtColumnUtil.getFieldName(ZtTest3::getVersion);
     }
 
     @Override
@@ -37,22 +39,23 @@ public class ZtTest3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtTest3> impleme
 
     @Override
     public String getLogicDeleteFieldName() {
-        return "deleteFlag";
+        return ZtColumnUtil.getFieldName(ZtTest3::getDeleteFlag);
     }
 
     public void demo() throws Exception {
         ZtParamEntity<ZtTest3> ztTest3ZtParamEntity = new ZtParamEntity<>();
         ZtTest3 ztTest3 = new ZtTest3();
         ztTest3ZtParamEntity.setEntity(ztTest3);
-        ztTest3ZtParamEntity = getThisService().initSimpleWrapper(ztTest3ZtParamEntity);
+        ztTest3ZtParamEntity = getThisService().initSimpleWrapper(ztTest3ZtParamEntity, SqlCommandType.SELECT);
         ztTest3ZtParamEntity.setNeedCount(false);
+        ztTest3ZtParamEntity.setUseCommonZtQueryWrapper(false);
         ZtQueryWrapper<ZtTest3> ztQueryWrapper = ztTest3ZtParamEntity.getZtQueryWrapper();
         ztQueryWrapper.andIn(ZtTest3::getRemark, new ArrayList());
         ztQueryWrapper.orLike(ZtTest3::getUdf1);
         ztQueryWrapper.andBetween(ZtTest3::getVersion, 20, 30);
         ztQueryWrapper.orGreatEquals(ZtTest3::getGmtCreate);
         ztQueryWrapper.andNotIn(ZtTest3::getId, new ArrayList());
-        ztTest3ZtParamEntity = getThisService().ztDoSimpleSelectProvider(ztTest3ZtParamEntity);
+        ztTest3ZtParamEntity = getThisService().ztSimpleSelectProvider(ztTest3ZtParamEntity);
         List<ZtTest3> list = getThisService().getList(ztTest3ZtParamEntity);
     }
 

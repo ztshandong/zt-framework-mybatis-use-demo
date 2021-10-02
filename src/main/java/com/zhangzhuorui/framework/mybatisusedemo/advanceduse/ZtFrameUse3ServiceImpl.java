@@ -40,7 +40,7 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
      */
     @Override
     public String getVersionFieldName() {
-        return "version";
+        return ZtColumnUtil.getFieldName(ZtFrameUse3::getVersion);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
      */
     @Override
     public String getLogicDeleteFieldName() {
-        return "deleteFlag";
+        return ZtColumnUtil.getFieldName(ZtFrameUse3::getDeleteFlag);
     }
 
     @Autowired
@@ -142,7 +142,7 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
 
         //根据sql子查询，通常是查询其他表
         ZtFrameUse2 ztFrameUse2SubQuery = new ZtFrameUse2();
-        ZtQueryWrapper<ZtFrameUse2> ztFrameUse2SubQueryWrapper = iZtFrameUse2Service.getQueryWrapper(ztFrameUse2SubQuery, false);
+        ZtQueryWrapper<ZtFrameUse2> ztFrameUse2SubQueryWrapper = iZtFrameUse2Service.getInitZtQueryWrapper(ztFrameUse2SubQuery);
         String id = iZtFrameUse2Service.getColumnName(ZtFrameUse2::getId);
         ztFrameUse2SubQueryWrapper.setSelectColumn(id);
         //AND ( zt_frame_use3.id IN ( SELECT id FROM zt_frame_use2 WHERE 1 = 1 ) )
@@ -151,7 +151,7 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
         //复合查询
         ZtFrameUse3 ztFrameUse3And = new ZtFrameUse3();
         ztFrameUse3And.setRemark("备注");
-        ZtQueryWrapper<ZtFrameUse3> ztFrameUse3AndInnerQueryWrapper = getThisService().getQueryWrapper(ztFrameUse3And, false);
+        ZtQueryWrapper<ZtFrameUse3> ztFrameUse3AndInnerQueryWrapper = getThisService().getInitZtQueryWrapper(ztFrameUse3And);
         ztFrameUse3AndInnerQueryWrapper
                 .orLike(ZtFrameUse3::getRemark)
                 .orIn(ZtFrameUse3::getCreatedBy, new ArrayList() {{
@@ -164,7 +164,7 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
         //复合查询
         ZtFrameUse3 ztFrameUse3Or = new ZtFrameUse3();
         ztFrameUse3Or.setRemark("ggggg");
-        ZtQueryWrapper<ZtFrameUse3> ztFrameUse3OrInnerQueryWrapper = getThisService().getQueryWrapper(ztFrameUse3And, false);
+        ZtQueryWrapper<ZtFrameUse3> ztFrameUse3OrInnerQueryWrapper = getThisService().getInitZtQueryWrapper(ztFrameUse3And);
         ztFrameUse3OrInnerQueryWrapper
                 .andLike(ZtFrameUse3::getRemark)
                 .andIn(ZtFrameUse3::getCreatedBy, new ArrayList() {{
@@ -178,7 +178,7 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
         //AND ( t1.gmt_update IS NOT NULL ) OR ( t1.remark LIKE '%aaa%' ) OR ( t1.udf_1 IN ( 'bbb', 'ccc' ) )
         ZtFrameUse1 ztFrameUse1 = new ZtFrameUse1();
         ztFrameUse1.setRemark("aaa");
-        ZtQueryWrapper<ZtFrameUse1> ztFrameUse1QueryWrapper = iZtFrameUse1Service.getQueryWrapper(ztFrameUse1, false);
+        ZtQueryWrapper<ZtFrameUse1> ztFrameUse1QueryWrapper = iZtFrameUse1Service.getInitZtQueryWrapper(ztFrameUse1);
         ztFrameUse1QueryWrapper
                 .andIsNotNull(ZtFrameUse1::getGmtUpdate)
                 .orLike(ZtFrameUse1::getRemark)
@@ -189,7 +189,7 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
 
         ZtFrameUse1 ztFrameUse1Inner = new ZtFrameUse1();
         ztFrameUse1Inner.setRemark("inneraaa");
-        ZtQueryWrapper<ZtFrameUse1> ztFrameUse1InnerQueryWrapper = iZtFrameUse1Service.getQueryWrapper(ztFrameUse1Inner, false);
+        ZtQueryWrapper<ZtFrameUse1> ztFrameUse1InnerQueryWrapper = iZtFrameUse1Service.getInitZtQueryWrapper(ztFrameUse1Inner);
         ztFrameUse1InnerQueryWrapper
                 .andIsNotNull(ZtFrameUse1::getGmtUpdate)
                 .orLike(ZtFrameUse1::getRemark)
@@ -208,7 +208,7 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
         ZtFrameUse2 ztFrameUse2 = new ZtFrameUse2();
         ztFrameUse2.setUdf1("d");
         ztFrameUse2.setRemark("eee");
-        ZtQueryWrapper<ZtFrameUse2> ztFrameUse2QueryWrapper = iZtFrameUse2Service.getQueryWrapper(ztFrameUse2, false);
+        ZtQueryWrapper<ZtFrameUse2> ztFrameUse2QueryWrapper = iZtFrameUse2Service.getInitZtQueryWrapper(ztFrameUse2);
         ztFrameUse2QueryWrapper
                 .orLike(ZtFrameUse2::getUdf1)
                 .andIn(ZtFrameUse2::getRemark, new ArrayList() {{

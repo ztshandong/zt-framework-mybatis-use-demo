@@ -2,6 +2,8 @@ package com.zhangzhuorui.framework.mybatisusedemo.advanceduse;
 
 import com.zhangzhuorui.framework.core.ZtColumnUtil;
 import com.zhangzhuorui.framework.core.ZtQueryConditionEntity;
+import com.zhangzhuorui.framework.core.ZtQueryTypeEnum;
+import com.zhangzhuorui.framework.core.ZtQueryWrapperEnum;
 import com.zhangzhuorui.framework.mybatis.core.ZtJoinWrapper;
 import com.zhangzhuorui.framework.mybatis.core.ZtParamEntity;
 import com.zhangzhuorui.framework.mybatis.core.ZtQueryWrapper;
@@ -158,7 +160,22 @@ public class ZtFrameUse3ServiceImpl extends ZtSimpleBaseServiceImpl<ZtFrameUse3>
                     add("张三");
                     add("李四");
                 }});
-        //AND ( ( zt_frame_use3.remark LIKE '%%备注%%' ) OR ( zt_frame_use3.created_by IN ( '张三', '李四' ) ) )
+        LinkedList<ZtQueryConditionEntity> conditons = ztFrameUse3AndInnerQueryWrapper.getConditons();
+        //同一个字段，多个条件
+        ZtQueryConditionEntity tmp = new ZtQueryConditionEntity();
+        tmp.setQueryWrapper(ZtQueryWrapperEnum.IN);
+        tmp.setList(new ArrayList() {{
+            add("王五");
+            add("赵六");
+        }});
+        tmp.setQueryType(ZtQueryTypeEnum.AND);
+        String fieldName = ZtColumnUtil.getFieldName(ZtFrameUse3::getCreatedBy);
+        tmp.setFieldName(fieldName);
+        String columnName = getColumnName(fieldName);
+        tmp.setColumnName(columnName);
+        conditons.add(tmp);
+
+        //AND ( ( zt_frame_use3.`created_by` IN ( '王五', '赵六' ) ) OR ( zt_frame_use3.remark LIKE '%%备注%%' ) OR ( zt_frame_use3.created_by IN ( '张三', '李四' ) ) )
         ztRootQueryWrapper.andInnerQueryWrapper(ztFrameUse3AndInnerQueryWrapper);
 
         //复合查询
